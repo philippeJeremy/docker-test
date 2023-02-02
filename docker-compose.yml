@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  db:
+    # environment:
+    #   - MONGO_INITDB_ROOT_USERNAME
+    #   - MONGO_INITDB_ROOT_PASSWORD
+    image: mongo
+    volumes:
+      - type: volume
+        source: mydb
+        target: /data/db
+    restart: unless-stopped
+  server:
+    environment:
+      - MONGO_PWD
+      - MONGO_USER
+    build: .
+    ports:
+      - 80:80
+    volumes:
+      - type: bind
+        source: ./src
+        target: /app/src
+    depends_on:
+      - db
+    restart: unless-stopped
+volumes:
+  mydb:
+    external: true

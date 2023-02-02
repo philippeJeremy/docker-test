@@ -1,0 +1,6 @@
+docker-compose up -d
+docker-compose logs
+docker exec -it "name_container" sh
+docker-compose ps
+docker-compose rm "nom_du_service"
+docker-compose rm -s -v "nom_du_service" 
